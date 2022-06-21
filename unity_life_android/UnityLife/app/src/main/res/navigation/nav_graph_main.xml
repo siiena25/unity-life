@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.unitylife.ui.fragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/drawer_events">
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" >
+        </action>
+        <action
+            android:id="@+id/action_mainFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" >
+            <argument
+                android:name="eventId"
+                app:argType="int" />
+        </action>
+        <!--<action
+            android:id="@+id/action_mapsFragment_to_markerFragment"
+            app:destination="@id/markerFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.unitylife.ui.fragments.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.example.unitylife.ui.fragments.EventDetailFragment"
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail">
+    </fragment>
+
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.example.unitylife.ui.fragments.AuthorizationFragment"
+        android:label="AuthorizationFragment"
+        tools:layout="@layout/fragment_authorization">
+    </fragment>
+
+</navigation>

@@ -1,0 +1,207 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.unitylife"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+android {
+    compileSdk 32
+
+    lintOptions {
+        checkReleaseBuilds true
+    }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileSdkVersion 31
+    defaultConfig {
+        applicationId "com.example.unitylife"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 100
+        versionName '1.0.0'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        buildConfigField "String", "YANDEX_METRIC_API", '"951f5985-f485-42ca-a4e1-091e20e133a6"'
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            buildConfigField "String", "API_URL", '"http://localhost:5434/"'
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            buildConfigField "String", "API_URL", '"http://localhost:5434/"'
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility = 1.8
+        sourceCompatibility = 1.8
+    }
+    buildToolsVersion = '30.0.3'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.3.5'
+    implementation 'com.google.firebase:firebase-messaging:23.0.4'
+    testImplementation 'junit:junit:4.13.2'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+
+    //play services
+    implementation 'com.google.gms:google-services:4.3.10'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'com.google.android.gms:play-services-basement:18.0.0'
+    implementation 'com.google.firebase:firebase-analytics:20.1.0'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Mockito
+    androidTestImplementation "org.mockito:mockito-core:2.23.4"
+    androidTestImplementation "org.mockito:mockito-android:2.7.22"
+
+    // FragmentScenario
+    def fragment_version = "1.2.5"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    //lifecycle-ktx
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+
+    implementation 'com.google.android.material:material:1.7.0-alpha01'
+
+    //glide. Load images
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //google play services
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.gms:google-services:4.3.10'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.maps.android:maps-ktx:2.3.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
+
+    //appmetric
+    implementation 'com.yandex.android:mobmetricalib:4.0.0'
+
+    //dagger
+    api 'com.google.dagger:dagger:2.30'
+    kapt 'com.google.dagger:dagger-compiler:2.30'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    //network
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    //views
+    implementation 'com.github.reline:google-maps-bottomsheet:1.1'
+    implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
+    implementation 'com.github.salahamassi:android-mask-date-editText:v1.02'
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    //room
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //navigation component
+    def nav_version = "2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    //Facebook SDK
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+    //Encoding and decoding of the unicode characters (for emoji)
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    //Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    //Yandex MapKit
+    implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
+}
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:layout_gravity="start"
+    android:background="@drawable/bg_profile"
+    android:focusable="true">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/drawerProfile_iv_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Widget.AppCompat.ImageButton"
+        tools:src="@drawable/ic_avatar_choose" />
+
+    <LinearLayout
+        android:id="@+id/drawer_profile_menu_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/drawerProfile_iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/drawerProfile_iv_avatar"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/drawerProfile_tv_username"
+            android:layout_marginTop="8dp"
+            style="@style/TextHeadline6"
+            android:textColor="@color/colorBlackDark"
+            android:layout_width="wrap_content"
+            android:paddingStart="16dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:textSize="18sp"
+            tools:text="Alex Smith" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:paddingStart="16dp"
+            android:id="@+id/drawerProfile_tv_email"
+            android:textSize="16sp"
+            android:textColor="@color/paleGray"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:layout_height="wrap_content"
+            tools:text="www.leningrad.ru" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/drawerProfile_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="#EEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/drawerProfile_iv_avatar" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginTop="26dp"
+        android:id="@+id/drawerProfile_btn_profile"
+        style="@style/DrawerItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorWhite"
+        android:layout_marginStart="9dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_medium"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto_regular_400"
+        android:text="@string/my_profile"
+        android:textColor="@color/colorBlackDark"
+        app:icon="@drawable/ic_item_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drawerProfile_separator" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/drawerProfile_btn_events"
+        style="@style/DrawerItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorWhite"
+        android:layout_marginStart="9dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_medium"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto_regular_400"
+        android:text="@string/events"
+        android:textColor="@color/colorBlackDark"
+        app:icon="@drawable/ic_events"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drawerProfile_btn_profile" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/drawerProfile_btn_exit"
+        style="@style/DrawerItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorWhite"
+        android:fontFamily="@font/roboto_regular_400"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/exit_from_app_text"
+        android:textColor="@color/colorBlackDark"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintStart_toStartOf="@id/drawerProfile_btn_events"
+        app:layout_constraintTop_toBottomOf="@id/drawerProfile_btn_events"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_exit"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="443dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

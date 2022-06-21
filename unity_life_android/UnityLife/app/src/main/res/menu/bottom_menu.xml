@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mapsFragment"
+        android:icon="@drawable/ic_item_promo"
+        android:title="@string/item_promotions" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_item_profile"
+        android:title="@string/item_profile" />
+</menu>
