@@ -1,0 +1,1 @@
+insert into users (firstname, lastname, email, age, gender, country, city, password, roleid) values ('Admin123', '', 'migrationworks', 1, 'Male', 'No Where', 'Onett', 'password', 1);
