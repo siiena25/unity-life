@@ -2,6 +2,7 @@ package com.unitylife.demo.dao_impl;
 
 import com.unitylife.demo.dao.LogInfoDao;
 import com.unitylife.demo.entity.LogInfo;
+import com.unitylife.demo.entity.User;
 import com.unitylife.demo.row_mappers.IntegerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +16,7 @@ public class PostgreSQLLogInfoImpl implements LogInfoDao {
 
     @Override
     public void addLogInfoData(LogInfo logInfo) {
-        final String sql = "UPDATE log_info SET userid = ?, email = ?, password = ?, token = ?";
+        final String sql = "INSERT INTO log_info (userid, email, password, token) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 logInfo.getUserId(),
                 logInfo.getEmail(),
@@ -31,8 +32,8 @@ public class PostgreSQLLogInfoImpl implements LogInfoDao {
 
     @Override
     public Integer getTokenByUserId(int userId) {
-        final String sql = "SELECT token FROM log_info WHERE userId = ?";
-        Integer token = jdbcTemplate.queryForObject(sql, new IntegerRowMapper(), userId);
+        final String sql = "SELECT token FROM log_info WHERE userid = ?";
+        Integer token = jdbcTemplate.queryForObject(sql, new IntegerRowMapper("token"), userId);
         return token;
     }
 }

@@ -16,13 +16,13 @@ public class AccessManager {
     public AccessManager() {
     }
 
-    public void checkUser(int id, String token) {
+    public void checkUser(int id, int token) {
         try {
             String database_token_sql = "SELECT token FROM log_info WHERE userid = ?";
-            String database_token = jdbcTemplate.queryForObject(database_token_sql, new Object[]{id}, String.class);
+            Integer database_token = jdbcTemplate.queryForObject(database_token_sql, new Object[]{id}, Integer.class);
             String database_id_sql = "SELECT userid FROM log_info WHERE token = ?";
             Integer database_id = jdbcTemplate.queryForObject(database_id_sql, new Object[]{token}, Integer.class);
-            if ((!database_id.equals(id)) || (!database_token.equals(token))) {
+            if (database_id != id || database_token != token) {
                 throw new AuthenticationException(id);
             }
         } catch (EmptyResultDataAccessException except) {

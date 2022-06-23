@@ -5,6 +5,7 @@ import com.unitylife.demo.dao_impl.PostgreSQLEventDaoImpl;
 import com.unitylife.demo.dao_impl.PostgreSQLGroupDaoImpl;
 import com.unitylife.demo.entity.Event;
 import com.unitylife.demo.entity.Group;
+import com.unitylife.demo.row_mappers.IntegerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,10 @@ public class EventService {
     //then Event created, also automatically created Group with groupId = eventId
     public void createEvent(Event event) {
         this.eventDao.createEvent(event);
-        Group group = new Group(event.getEventId(), event.getAuthorId(), event.getTitle());
+        int eventId = this.eventDao.getEventIdByTitle(event.getTitle());
+        Group group = new Group(eventId, event.getAuthorId(), event.getTitle());
         this.groupDao.createGroup(group);
+        this.groupDao.addUserToGroup(group.getGroupID(), group.getAdminId());
     }
 
     public void removeEventById(int id) {

@@ -48,12 +48,12 @@ public class EventController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @RequestMapping(value = "/eventId/{eventId}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/eventId/{eventId}/token/{token}", method = RequestMethod.DELETE)
     public void removeEventById(@ApiParam(value = "User ID", required = true)
                                @PathVariable("userid") int userId,
                                @ApiParam(value = "Event ID", required = true)
                                @PathVariable("eventId") int eventId,
-                               @RequestHeader("authorization") String token) {
+                                @PathVariable("token") int token) {
         accessManager.checkUser(userId, token);
         eventService.removeEventById(eventId);
     }
@@ -65,23 +65,23 @@ public class EventController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/createEvent/{userId}/token/{token}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createEvent(@ApiParam(value = "Event", required = true) @RequestBody Event assignment,
                            @ApiParam(value = "User ID calling method", required = true)
-                           @PathVariable("userid") int userId,
-                           @RequestHeader("authorization") String token) {
-        accessManager.checkUser(userId, token);
+                           @PathVariable("userId") int userId,
+                            @PathVariable("token") int token) {
+        //accessManager.checkUser(userId, token);
         eventService.createEvent(assignment);
     }
 
     @ApiOperation(value = "Updates Event given user ID and event ID")
-    @RequestMapping(value = "/update/eventId/{eventId}/", method = RequestMethod.PUT,
+    @RequestMapping(value = "/update/eventId/{eventId}/userId/{userId}/token/{token}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updatePost(@ApiParam(value = "User ID", required = true)
-                           @PathVariable("userid") int userId,
+    public void updateEvent(@ApiParam(value = "User ID", required = true)
+                           @PathVariable("userId") int userId,
                            @ApiParam(value = "Event ID", required = true)
                            @PathVariable("eventId") int eventId,
-                           @RequestHeader("authorization") String token,
+                            @PathVariable("token") int token,
                            @RequestBody Event event) {
         accessManager.checkUser(userId, token);
         eventService.updateEvent(eventId, event);

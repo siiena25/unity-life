@@ -31,10 +31,10 @@ public class PostgreSQLUserDaoImpl implements UserDao {
         return users;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @Override
     public User getUserById(int userid) {
         final String sql = "SELECT * FROM users WHERE userid = ?";
+        System.out.println("PosgtreSQLUserDaoImpl: getUserById; userid=" + userid);
         User user = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userid);
         return user;
     }
@@ -57,9 +57,9 @@ public class PostgreSQLUserDaoImpl implements UserDao {
     @Override
     public void insertUserToDb(User user) {
         final String sql = "INSERT INTO users (firstname, lastname, email, age, gender, country, " +
-                "city, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "city, password, roleid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail()
-                , user.getAge(), user.getGender(), user.getCountry(), user.getCity(), user.getPassword(), "USER");
+                , user.getAge(), user.getGender(), user.getCountry(), user.getCity(), user.getPassword(), 2);
     }
 
     @Override

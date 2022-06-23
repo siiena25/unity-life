@@ -12,11 +12,11 @@ public class LogInfo {
         this.userId = userId;
         this.email = email;
         this.password = password;
-        createToken(userId);
+        createToken(email);
     }
 
-    private void createToken(int userId) {
-        this.token = Integer.hashCode(userId);
+    private void createToken(String email) {
+        this.token = email.hashCode();
     }
 
     public int getUserId() {

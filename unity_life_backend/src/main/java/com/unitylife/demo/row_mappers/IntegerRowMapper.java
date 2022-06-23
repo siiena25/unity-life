@@ -7,8 +7,14 @@ import java.sql.SQLException;
 
 public class IntegerRowMapper implements RowMapper<Integer> {
 
+    private String columnLabel = "";
+
+    public IntegerRowMapper(String columnLabel) {
+        this.columnLabel = columnLabel;
+    }
+
     @Override
     public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
-        return resultSet.getInt("memberid");
+        return resultSet.getInt(columnLabel);
     }
 }

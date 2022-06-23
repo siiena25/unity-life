@@ -36,14 +36,15 @@ public class LoginController {
     @RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
     public @ResponseBody Integer getToken(
             @ApiParam(value = "User ID", required = true)
-            @PathVariable("userid") int userId
+            @PathVariable("userId") int userId
     ) {
         User user = userService.getUserById(userId);
         Integer token = null;
-        if(user != null) {
+        if (user != null) {
             LogInfo logInfo = new LogInfo(user.getId(), user.getEmail(), user.getPassword());
             logInfoService.addLogInfoData(logInfo);
-            return logInfo.getToken();
+            token = logInfoService.getTokenByUserId(userId);
+            System.out.println("LoginController: getToken=" + token);
         }
         return token;
     }
@@ -51,7 +52,7 @@ public class LoginController {
     @RequestMapping(value = "/logout/{userId}", method = RequestMethod.GET)
     public void logout(
             @ApiParam(value = "User ID", required = true)
-            @PathVariable("userid") int userId
+            @PathVariable("userId") int userId
     ) {
         Integer token = logInfoService.getTokenByUserId(userId);
         if(token != null) {
@@ -69,13 +70,14 @@ public class LoginController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void register(
+    public @ResponseBody User register(
             @ApiParam(value = "User information", required = true)
             @RequestBody User user) {
         try {
             System.out.println(user.getFirstName());
             System.out.println(user.getLastName());
             userService.register(user);
+            return userService.getUserByEmail(user.getEmail());
         } catch (DataIntegrityViolationException e) {
             throw new DuplicateEmailException(user);
         }

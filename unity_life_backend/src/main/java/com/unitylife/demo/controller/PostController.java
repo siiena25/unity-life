@@ -49,12 +49,12 @@ public class PostController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @RequestMapping(value = "/id/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPostsById/id/{id}/token/{token}", method = RequestMethod.GET)
     public DBPost getPostsById(@ApiParam(value = "Post ID", required = true)
                                @PathVariable("userid") int id1,
                                @ApiParam(value = "User ID", required = true)
                                @PathVariable("id") int id,
-                               @RequestHeader("authorization") String token) {
+                               @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id1, token);
             return postService.getPostsById(id);
@@ -70,14 +70,14 @@ public class PostController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/group/{groupid}/member/{memberid}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPosrsByUserFromGroup/group/{groupid}/member/{memberid}/token/{token}", method = RequestMethod.GET)
     public Collection<DBPost> getPostsByUserFromGroup(@ApiParam(value = "User ID", required = true)
                                                       @PathVariable("userid") int id1,
                                                       @ApiParam(value = "Member ID", required = true)
                                                       @PathVariable("memberid") int id2,
                                                       @ApiParam(value = "Group ID", required = true)
                                                       @PathVariable("groupid") int groupid,
-                                                      @RequestHeader("authorization") String token) {
+                                                      @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         Collection<DBPost> result = postService.getPostsByUserFromGroup(id1, id2, groupid);
         if (result.size() == 0) {
@@ -93,14 +93,14 @@ public class PostController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/groupname/{name}/member/{memberid}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPostsByUserFromGroupName/groupname/{name}/member/{memberid}/token/{token}", method = RequestMethod.GET)
     public Collection<DBPost> getPostsByUserFromGroupName(@ApiParam(value = "User ID", required = true)
                                                           @PathVariable("userid") int id,
                                                           @ApiParam(value = "Member ID", required = true)
                                                           @PathVariable("memberid") int id2,
                                                           @ApiParam(value = "Group Name", required = true)
                                                           @PathVariable("name") String name,
-                                                          @RequestHeader("authorization") String token) {
+                                                          @PathVariable("token") int token) {
         accessManager.checkUser(id, token);
         Collection<DBPost> result = postService.getPostsByUserFromGroupName(id, id2, name);
         if (result.size() == 0) {
@@ -110,13 +110,13 @@ public class PostController {
     }
 
     @ApiOperation(value = "Updates Post given user ID and post ID")
-    @RequestMapping(value = "/update/postid/{postid}/", method = RequestMethod.PUT,
+    @RequestMapping(value = "/updatePost/postid/{postid}/token/{token}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updatePost(@ApiParam(value = "User ID", required = true)
                            @PathVariable("userid") int id,
                            @ApiParam(value = "Post ID", required = true)
                            @PathVariable("postid") int postid,
-                           @RequestHeader("authorization") String token,
+                           @PathVariable("token") int token,
                            @RequestBody Post post) {
         accessManager.checkUser(id, token);
         postService.updatePosts(id, post);
@@ -128,12 +128,12 @@ public class PostController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @RequestMapping(value = "/id/{id}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/removePostById/id/{id}/token/{token}", method = RequestMethod.DELETE)
     public void removePostById(@ApiParam(value = "User ID", required = true)
                                @PathVariable("userid") int id1,
                                @ApiParam(value = "Post ID", required = true)
                                @PathVariable("id") int id,
-                               @RequestHeader("authorization") String token) {
+                               @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         postService.removePostsById(id1, id);
     }
@@ -145,20 +145,20 @@ public class PostController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/createPost/userId/{userid}/token/{token}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createPost(@ApiParam(value = "Post", required = true) @RequestBody Post assignment,
                            @ApiParam(value = "User ID calling method", required = true)
                            @PathVariable("userid") int userid,
-                           @RequestHeader("authorization") String token) {
+                           @PathVariable("token") int token) {
         accessManager.checkUser(userid, token);
         postService.createPost(assignment);
     }
 
 
-    @RequestMapping(value = "/wall/", method = RequestMethod.GET)
+    @RequestMapping(value = "/wall/token/{token}", method = RequestMethod.GET)
     public Collection<DBPost> getPostUserMainPage(@ApiParam(value = "User ID", required = true)
                                                   @PathVariable("userid") int id,
-                                                  @RequestHeader("authorization") String token) {
+                                                  @PathVariable("token") int token) {
         accessManager.checkUser(id, token);
         return postService.getPostUserMainPage(id);
     }

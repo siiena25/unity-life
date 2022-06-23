@@ -47,9 +47,8 @@ public class PostgreSQLGroupDaoImpl implements GroupDao {
 
     @Override
     public void createGroup(Group group) {
-        addUserToGroup(group.getGroupID(), group.getAdminId());
-        final String sql = "INSERT INTO groups (groupname, groupadminid) VALUES ( ?, ?)";
-        jdbcTemplate.update(sql, group.getName(), group.getAdminId());
+        final String sql = "INSERT INTO groups (groupid, groupname, groupadminid) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, group.getGroupID(), group.getName(), group.getAdminId());
     }
 
     @Override
@@ -96,7 +95,7 @@ public class PostgreSQLGroupDaoImpl implements GroupDao {
     @Override
     public Collection<Integer> getAllUserIds(int groupId) {
         final String sql = "SELECT userid FROM membership WHERE groupid = ?";
-        List<Integer> userIdsList = jdbcTemplate.query(sql, new IntegerRowMapper(), groupId);
+        List<Integer> userIdsList = jdbcTemplate.query(sql, new IntegerRowMapper("memberid"), groupId);
         return userIdsList;
     }
 

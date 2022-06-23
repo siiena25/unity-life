@@ -41,11 +41,11 @@ public class FriendsController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @RequestMapping(value = "/all",
+    @RequestMapping(value = "/getAllFriends/token/{token}",
             method = RequestMethod.GET)
     public Collection<User> getAllFriends(@ApiParam(value = "User ID", required = true)
                                           @PathVariable("userid") int id,
-                                          @RequestHeader("authorization") String token) {
+                                          @PathVariable("token") int token) {
         accessManager.checkUser(id, token);
         return service.getAllFriends(id);
     }
@@ -58,11 +58,11 @@ public class FriendsController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
 
-    @RequestMapping(value = "/all",
+    @RequestMapping(value = "/removeAllFriends/token/{token}",
             method = RequestMethod.DELETE)
     public void removeAllFriends(@ApiParam(value = "User ID", required = true)
                                  @PathVariable("userid") int id,
-                                 @RequestHeader("authorization") String token) {
+                                 @PathVariable("token") int token) {
 
         accessManager.checkUser(id, token);
         this.service.removeAllFriends(id);
@@ -75,11 +75,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/unfriend/{username}/",
+    @RequestMapping(value = "/unfriend/{username}/token/{token}",
             method = RequestMethod.PUT)
     public void unFriend(@ApiParam(value = "User ID", required = true) @PathVariable("userid") int id1,
                          @ApiParam(value = "Username", required = true) @PathVariable("username") String username,
-                         @RequestHeader("authorization") String token) {
+                         @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         this.service.unFriend(id1, username);
     }
@@ -91,11 +91,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/count",
+    @RequestMapping(value = "/countFriends/token/{token}",
             method = RequestMethod.GET)
     public int countFriends(@ApiParam(value = "User ID", required = true)
                             @PathVariable("userid") int id,
-                            @RequestHeader("authorization") String token) {
+                            @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id, token);
             return this.service.countFriends(id);
@@ -111,11 +111,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/request/{username}/",
+    @RequestMapping(value = "/sendRequest/{username}/token/{token}",
             method = RequestMethod.PUT)
     public void sendRequest(@ApiParam(value = "User ID", required = true) @PathVariable("userid") int id1,
                             @ApiParam(value = "Username", required = true) @PathVariable("username") String username,
-                            @RequestHeader("authorization") String token) {
+                            @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         this.service.sendRequest(id1, username);
     }
@@ -128,11 +128,11 @@ public class FriendsController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
 
-    @RequestMapping(value = "/accept/{username}/",
+    @RequestMapping(value = "/acceptFriend/{username}/token/{token}",
             method = RequestMethod.PUT)
     public void becomeFriend(@ApiParam(value = "User ID", required = true) @PathVariable("userid") int id1,
                              @ApiParam(value = "Username", required = true) @PathVariable("username") String username,
-                             @RequestHeader("authorization") String token) {
+                             @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         this.service.becomeFriend(id1, username);
     }
@@ -144,11 +144,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/block/{username}/",
+    @RequestMapping(value = "/blockFriend/{username}/token/{token}",
             method = RequestMethod.PUT)
     public void blockFriend(@ApiParam(value = "User ID", required = true) @PathVariable("userid") int id1,
                             @ApiParam(value = "Username", required = true) @PathVariable("username") String username,
-                            @RequestHeader("authorization") String token) {
+                            @PathVariable("token") int token) {
         accessManager.checkUser(id1, token);
         this.service.blockFriend(id1, username);
     }
@@ -160,11 +160,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/common/{username}/",
+    @RequestMapping(value = "/common/{username}/token/{token}",
             method = RequestMethod.GET)
     public Collection<User> commonFriends(@ApiParam(value = "User ID", required = true) @PathVariable("userid") int id1,
                                           @ApiParam(value = "Username", required = true) @PathVariable("username") String username,
-                                          @RequestHeader("authorization") String token) {
+                                          @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id1, token);
             return this.service.commonFriends(id1, username);
@@ -180,11 +180,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/{username}/",
+    @RequestMapping(value = "/{username}/token/{token}",
             method = RequestMethod.GET)
     public Collection<User> getFriendsByName(@ApiParam(value = "Username", required = true) @PathVariable("username") String username,
                                              @ApiParam(value = "User ID", required = true) @PathVariable("userid") int id,
-                                             @RequestHeader("authorization") String token) {
+                                             @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id, token);
             return this.service.getFriendsByName(username, id);
@@ -200,11 +200,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/pending-invitation",
+    @RequestMapping(value = "/pending-invitation/token/{token}",
             method = RequestMethod.GET)
     public Collection<User> getInvitationList(@ApiParam(value = "User ID", required = true)
                                               @PathVariable("userid") int id,
-                                              @RequestHeader("authorization") String token) {
+                                              @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id, token);
             return this.service.getInvitationList(id);
@@ -220,11 +220,11 @@ public class FriendsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/blocked",
+    @RequestMapping(value = "/getBlockList/token/{token}",
             method = RequestMethod.GET)
     public Collection<User> getBlockList(@ApiParam(value = "User ID", required = true)
                                          @PathVariable("userid") int id,
-                                         @RequestHeader("authorization") String token) {
+                                         @PathVariable("token") int token) {
         try {
             accessManager.checkUser(id, token);
             return this.service.getBlockList(id);

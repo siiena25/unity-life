@@ -4,6 +4,7 @@ import com.unitylife.demo.dao.EventDao;
 import com.unitylife.demo.entity.Event;
 import com.unitylife.demo.exceptions.AuthenticationException;
 import com.unitylife.demo.exceptions.ResourceNotFoundException;
+import com.unitylife.demo.row_mappers.IntegerRowMapper;
 import com.unitylife.demo.service.FriendsService;
 import com.unitylife.demo.service.GroupService;
 import com.unitylife.demo.service.UserService;
@@ -44,6 +45,13 @@ public class PostgreSQLEventDaoImpl implements EventDao {
         final String sql = "SELECT * FROM events WHERE CURRENT_TIMESTAMP < timeend";
         List<Event> events = jdbcTemplate.query(sql, new PostgreSQLEventDaoImpl.EventRowMapper());
         return events;
+    }
+
+    @Override
+    public int getEventIdByTitle(String title) {
+        final String sql = "SELECT eventid FROM events WHERE title = ?";
+        Integer eventId = jdbcTemplate.queryForObject(sql, new IntegerRowMapper("eventid"), title);
+        return eventId;
     }
 
     @Override
