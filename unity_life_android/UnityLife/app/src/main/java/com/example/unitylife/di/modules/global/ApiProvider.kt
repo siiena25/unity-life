@@ -16,6 +16,12 @@ class ApiProvider {
     @Provides
     @Singleton
     @NonNull
-    fun getAppealService(retrofit: Retrofit): LoginService =
+    fun getLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
+
+    @Provides
+    @Singleton
+    @NonNull
+    fun getLEventService(retrofit: Retrofit): EventService =
+        retrofit.create(EventService::class.java)
 }

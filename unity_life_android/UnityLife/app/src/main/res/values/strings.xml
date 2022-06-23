@@ -35,4 +35,13 @@
     <string name="error_authorization">Вы не авторизованы для просмотра ресурса</string>
     <string name="error_access_forbidden">\t Доступ к ресурсу, к которому вы пытались обратиться, запрещен</string>
     <string name="error_resource_not_found">Ресурс, к которому вы пытались обратиться, не найден</string>
+    <string name="hint_age">Возраст</string>
+    <string name="hint_country">Страна проживания</string>
+    <string name="hint_city">Город</string>
+    <string name="sign_in_hasnt_account">Еще нет аккаунта?</string>
+    <string name="address">Адрес</string>
+    <string name="country">Страна</string>
+    <string name="country_example">Россия</string>
+    <string name="city_example">Москва</string>
+    <string name="city">Город</string>
 </resources>

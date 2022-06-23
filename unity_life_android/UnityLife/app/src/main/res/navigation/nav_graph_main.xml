@@ -15,11 +15,15 @@
             app:destination="@id/profileFragment" >
         </action>
         <action
+            android:id="@+id/action_mainFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" >
+        </action>
+        <action
             android:id="@+id/action_mainFragment_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment" >
             <argument
                 android:name="eventId"
-                app:argType="int" />
+                app:argType="integer"/>
         </action>
         <!--<action
             android:id="@+id/action_mapsFragment_to_markerFragment"

@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import utils.SharedPreferencesStorage
 import javax.inject.Inject
 
-class CurrentEventsFragment : Fragment() {
+class AllEventsFragment : Fragment() {
     private lateinit var binding: FragmentEventsBinding
     private lateinit var viewModel: EventsViewModel
     private lateinit var adapter: FeedAdapter
@@ -73,11 +73,11 @@ class CurrentEventsFragment : Fragment() {
         adapter = FeedAdapter(viewBinders)
 
         var list = mutableListOf<EventModel>()
-        list.add(
-            EventModel(1, 42, "Марафон для бегунов", "Спортивное мероприятие", "https://sun9-32.userapi.com/impf/AtLcOt4w-WQ5j-_Mak2rN4x0v0CXA2OSs66fKg/BhQLK37Mdrs.jpg?size=1000x667&quality=96&sign=90471f3aaccaf02d193d5cb8bb9845b6&type=album",
+        list.add(EventModel(1, 42, "Марафон для бегунов", "Спортивное мероприятие", "https://sun9-32.userapi.com/impf/AtLcOt4w-WQ5j-_Mak2rN4x0v0CXA2OSs66fKg/BhQLK37Mdrs.jpg?size=1000x667&quality=96&sign=90471f3aaccaf02d193d5cb8bb9845b6&type=album",
             "Москва, парк Измайловский", "В воскресенье проводится первый марафон для жителей общежития МГТУ им. Баумана", "2022-06-20T12:00:00", "2022-06-20T15:00:00",
-            55.7F, 37.6F)
-        )
+            55.7F, 37.6F))
+        list.add(EventModel(2, 42, "День открытых дверей", "Образовательное мероприятие", "https://alfakom.uz/images/img/partners/mgtu_baum.jpg",
+            "2-я Бауманская ул., д.5, стр.1, Москва", "Приходите на день открытых дверей в МГТУ имени Баумана", "2022-04-25T10:00:00","2022-04-25T18:00:00", 55.7F, 37.6F ))
         adapter.submitList(list as List<Any>?)
     }
 

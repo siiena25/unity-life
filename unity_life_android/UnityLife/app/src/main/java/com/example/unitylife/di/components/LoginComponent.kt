@@ -4,6 +4,7 @@ import com.example.unitylife.di.modules.local.LoginModule
 import com.example.unitylife.di.scope.LoginScope
 import com.example.unitylife.di.vm.LoginModuleVM
 import com.example.unitylife.ui.fragments.AuthorizationFragment
+import com.example.unitylife.ui.fragments.MainFragment
 import dagger.Subcomponent
 
 @LoginScope
@@ -12,4 +13,6 @@ import dagger.Subcomponent
 )
 interface LoginComponent {
     fun inject(fragment: AuthorizationFragment)
+
+    fun inject(fragment: MainFragment)
 }

@@ -3,7 +3,6 @@ package com.example.unitylife.utils
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.llc.aceplace_ru.DimensionUtils
 
 typealias OnSystemInsetsChangedListener = (statusBarSize: Int, navigationBarSize: Int) -> Unit
 

@@ -99,14 +99,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             motion:layout_constraintGuide_begin="65dp" />
-
-        <Constraint android:id="@id/settingsHeader_iv_navigation"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_back_violet"
-            android:padding="24dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent">
-        </Constraint>
     </ConstraintSet>
 </MotionScene>

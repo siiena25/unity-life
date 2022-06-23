@@ -1,4 +1,4 @@
-package com.llc.aceplace_ru.utils
+package com.example.unitylife.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -18,7 +18,7 @@ class ConnectionUtils {
 
         @JvmStatic
         fun init(context: Context) {
-            this.context = context
+            Companion.context = context
             registerNetworkCallback()
         }
 

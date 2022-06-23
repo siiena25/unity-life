@@ -1,6 +1,17 @@
 package utils.consts
 
 object PrefsKeys {
+    const val KEY_USER_ID = "keyUserId"
+    const val KEY_USER_FIRST_NAME = "keyUserFirstName"
+    const val KEY_USER_SECOND_NAME = "keyUserSecondName"
+    const val KEY_USER_EMAIL = "keyUserEmail"
+    const val KEY_USER_PASSWORD = "keyUserPassword"
+    const val KEY_USER_COUNTRY = "keyUserCountry"
+    const val KEY_USER_CITY = "keyUserCity"
+    const val KEY_USER_GENDER = "keyUserGender"
+    const val KEY_USER_AGE = "keyUserAge"
+
+
     const val KEY_IS_USER_REGISTERED = "keyIsUserRegistered"
     const val KEY_BEHAVIOR_STATE = "keyBehaviorState"
     const val KEY_LAST_BOTTOM_NAVIGATION_SCREEN = "keyLastBottomNavigationScreen"

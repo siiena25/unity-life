@@ -28,7 +28,6 @@
 
     <!--    COLORS EDIT_TEXT-->
     <color name="colorBoxBackground">#F9F9FD</color>
-    <color name="bottomColorsSelector" tools:ignore="ReferenceType">@drawable/selector_bottom_navigation</color>
     <color name="gradientVioletLight">#A48FFF</color>
     <color name="gradientVioletDark">#7C67FF</color>
     <color name="gradientOutlinedButtonStart">#A48FFF</color>

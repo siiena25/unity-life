@@ -3,15 +3,17 @@ package com.example.unitylife.view_models
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.unitylife.R
+import com.example.unitylife.data.models.SendToServerUserModel
 import com.example.unitylife.data.models.UserModel
 import com.example.unitylife.data.repository.LoginRepository
 import com.example.unitylife.network.ErrorHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class LoginState {
-    object RegisterSuccess : LoginState()
+    data class RegisterSuccess(val userModel: UserModel) : LoginState()
     data class LoginSuccess(val token: Int) : LoginState()
     object LogoutSuccess : LoginState()
     data class Error(val textId: Int) : LoginState()
@@ -24,11 +26,11 @@ class LoginViewModel @Inject constructor(
     private val state: MutableSharedFlow<LoginState> = MutableStateFlow(LoginState.Default)
     private val _state: SharedFlow<LoginState> = state.asSharedFlow()
 
-    fun register(userModel: UserModel) {
+    fun register(userModel: SendToServerUserModel) {
         viewModelScope.launch {
-            kotlin.runCatching { repository.register(userModel) }
-                .onSuccess { state.emit(LoginState.RegisterSuccess) }
-                .onFailure { onError(it) }
+            repository.register(userModel)
+                .catch { onError(it) }
+                .collect { state.emit(LoginState.RegisterSuccess(it)) }
         }
     }
 

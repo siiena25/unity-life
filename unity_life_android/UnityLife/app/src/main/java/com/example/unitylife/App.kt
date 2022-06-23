@@ -7,7 +7,6 @@ import com.example.unitylife.config.DeviceInfo
 import com.example.unitylife.di.AppComponent
 import com.example.unitylife.di.AppModule
 import com.example.unitylife.di.DaggerAppComponent
-import com.example.unitylife.network.GlobalService
 import java.util.*
 
 private lateinit var INSTANCE: Application
@@ -25,8 +24,6 @@ class App : Application() {
             .appModule(AppModule(this))
             .build()
         initDeviceMetadata()
-
-        GlobalService.init(this)
     }
 
     fun getAppComponent(): AppComponent {

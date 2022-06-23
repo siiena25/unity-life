@@ -1,5 +1,6 @@
 package com.example.unitylife.data.repository
 
+import com.example.unitylife.data.models.SendToServerUserModel
 import com.example.unitylife.data.models.UserModel
 import com.example.unitylife.data.source.local.UserDao
 import com.example.unitylife.data.source.remote.LoginRemoteDataSource
@@ -7,16 +8,19 @@ import com.example.unitylife.network.ErrorHandler
 import com.example.unitylife.network.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import utils.SharedPreferencesStorage
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
-    private val userLocalDataSource: UserDao,
+    private val storage: SharedPreferencesStorage,
     private val remoteDataSource: LoginRemoteDataSource
 ) {
-    suspend fun register(userModel: UserModel) {
-        when (val response = remoteDataSource.register(userModel)) {
-            is Result.Success -> userLocalDataSource.insert(listOf(userModel))
-            is Result.Error -> onError(response.code)
+    suspend fun register(userModel: SendToServerUserModel): Flow<UserModel> {
+        return flow {
+            val responseFeed = remoteDataSource.register(userModel)
+            if (responseFeed is Result.Success) {
+                emit(responseFeed.data)
+            }
         }
     }
 
@@ -31,9 +35,11 @@ class LoginRepository @Inject constructor(
 
     suspend fun logout(userId: Int) {
         when (val response = remoteDataSource.logout(userId)) {
-            is Result.Success -> userLocalDataSource.deleteTokenByUserId(
-                userId, response.data.toString().toInt())
+            is Result.Success -> {
+                storage.putAuthToken(0)
+            }
             is Result.Error -> onError(response.code)
+            else -> {}
         }
     }
 

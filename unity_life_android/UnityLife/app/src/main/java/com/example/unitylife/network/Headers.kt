@@ -25,15 +25,6 @@ class Headers {
         map[DEVICE_MODEL] = DeviceInfo.getInstance().deviceModel
     }
 
-    fun getHeaders(): Map<String, String> {
-        map["Authorization"] = "Bearer ${readJwtToken()}"
-        return map
-    }
-
-    private fun readJwtToken(): String? {
-        return SharedPreferencesStorage(App.getInstance()).getAuthToken()
-    }
-
     companion object {
         private val instance = Headers()
 

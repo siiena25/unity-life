@@ -3,6 +3,7 @@ package utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.Nullable
+import com.example.unitylife.data.models.UserModel
 import utils.consts.PrefsKeys
 import java.util.Collections.emptySet
 import javax.inject.Inject
@@ -186,4 +187,110 @@ class SharedPreferencesStorage @Inject constructor(
     }
 
     fun getUserBalance(data: String): String? = storage.getString(PrefsKeys.KEY_USER_BALANCE, null)
+
+
+    fun putUserId(data: Int) {
+        storage.edit()
+            .putInt(PrefsKeys.KEY_USER_ID, data)
+            .apply()
+    }
+
+    fun getUserId(): Int = storage.getInt(PrefsKeys.KEY_USER_ID, 0)
+
+    fun putUserFirstName(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_FIRST_NAME, data)
+            .apply()
+    }
+
+    fun getUserFirstName(): String? =
+        storage.getString(PrefsKeys.KEY_USER_FIRST_NAME, null)
+
+    fun putUserSecondName(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_SECOND_NAME, data)
+            .apply()
+    }
+
+    fun getUserSecondName(): String? =
+        storage.getString(PrefsKeys.KEY_USER_SECOND_NAME, null)
+
+    fun putUserEmail(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_EMAIL, data)
+            .apply()
+    }
+
+    fun getUserEmail(): String? = storage.getString(PrefsKeys.KEY_USER_EMAIL, null)
+
+    fun putUserPassword(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_PASSWORD, data)
+            .apply()
+    }
+
+    fun getUserPassword(): String? =
+        storage.getString(PrefsKeys.KEY_USER_PASSWORD, null)
+
+    fun putUserCountry(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_COUNTRY, data)
+            .apply()
+    }
+
+    fun getUserCountry(): String? = storage.getString(PrefsKeys.KEY_USER_COUNTRY, null)
+
+    fun putUserCity(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_CITY, data)
+            .apply()
+    }
+
+    fun getUserCity(): String? = storage.getString(PrefsKeys.KEY_USER_CITY, null)
+
+    fun putUserGender(data: String) {
+        storage.edit()
+            .putString(PrefsKeys.KEY_USER_GENDER, data)
+            .apply()
+    }
+
+    fun getUserGender(): String? = storage.getString(PrefsKeys.KEY_USER_GENDER, null)
+
+    fun putUserAge(data: Int) {
+        storage.edit()
+            .putInt(PrefsKeys.KEY_USER_AGE, data)
+            .apply()
+    }
+
+    fun getUserAge(): Int = storage.getInt(PrefsKeys.KEY_USER_AGE, 0)
+
+    fun putUserModel(userModel: UserModel) {
+        putUserId(userModel.userId)
+        putUserFirstName(userModel.firstName)
+        putUserSecondName(userModel.lastName)
+        putUserEmail(userModel.email)
+        putUserPassword(userModel.password)
+        putUserAge(userModel.age)
+        putUserCountry(userModel.country)
+        putUserCity(userModel.city)
+        putUserGender(userModel.gender)
+    }
+
+    fun removeAuthToken() {
+        storage.edit()
+            .putInt(PrefsKeys.KEY_TOKEN, 0)
+            .apply()
+    }
+
+    fun removeUser() {
+        putUserId(0)
+        putUserFirstName("")
+        putUserSecondName("")
+        putUserEmail("")
+        putUserPassword("")
+        putUserAge(0)
+        putUserCountry("")
+        putUserCity("")
+        putUserGender("")
+    }
 }

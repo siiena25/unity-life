@@ -6,21 +6,8 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/categories_switch"
-        style="@style/TextBody2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:text="@string/see_only_current_events"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bottomSheetBusiness_promo_list"
+        android:id="@+id/events_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"

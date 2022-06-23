@@ -19,8 +19,5 @@ interface UserDao {
     suspend fun getUsersById(userId: String): UserModel?
 
     @Query("UPDATE users SET token=:token WHERE userId=:userId")
-    suspend fun insertTokenByUserId(userId: Int, token: Int): Flow<Int>
-
-    @Query("UPDATE users SET token=:token WHERE userId=:userId")
     suspend fun deleteTokenByUserId(userId: Int, token: Int?)
 }
