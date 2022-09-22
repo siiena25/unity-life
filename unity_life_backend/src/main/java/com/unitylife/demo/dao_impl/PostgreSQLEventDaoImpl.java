@@ -2,9 +2,11 @@ package com.unitylife.demo.dao_impl;
 
 import com.unitylife.demo.dao.EventDao;
 import com.unitylife.demo.entity.Event;
+import com.unitylife.demo.entity.User;
 import com.unitylife.demo.exceptions.AuthenticationException;
 import com.unitylife.demo.exceptions.ResourceNotFoundException;
 import com.unitylife.demo.row_mappers.IntegerRowMapper;
+import com.unitylife.demo.row_mappers.UserRowMapper;
 import com.unitylife.demo.service.FriendsService;
 import com.unitylife.demo.service.GroupService;
 import com.unitylife.demo.service.UserService;
@@ -52,6 +54,13 @@ public class PostgreSQLEventDaoImpl implements EventDao {
         final String sql = "SELECT eventid FROM events WHERE title = ?";
         Integer eventId = jdbcTemplate.queryForObject(sql, new IntegerRowMapper("eventid"), title);
         return eventId;
+    }
+
+    @Override
+    public Event getEventByTitle(String title, int authorId) {
+        final String sql = "SELECT * FROM events WHERE title = ? AND authorid = ?";
+        Event event = jdbcTemplate.queryForObject(sql, new EventRowMapper(), title, authorId);
+        return event;
     }
 
     @Override

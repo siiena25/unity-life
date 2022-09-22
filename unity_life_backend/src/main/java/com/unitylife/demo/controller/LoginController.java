@@ -74,8 +74,6 @@ public class LoginController {
             @ApiParam(value = "User information", required = true)
             @RequestBody User user) {
         try {
-            System.out.println(user.getFirstName());
-            System.out.println(user.getLastName());
             userService.register(user);
             return userService.getUserByEmail(user.getEmail());
         } catch (DataIntegrityViolationException e) {

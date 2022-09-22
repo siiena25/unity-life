@@ -34,7 +34,6 @@ public class PostgreSQLUserDaoImpl implements UserDao {
     @Override
     public User getUserById(int userid) {
         final String sql = "SELECT * FROM users WHERE userid = ?";
-        System.out.println("PosgtreSQLUserDaoImpl: getUserById; userid=" + userid);
         User user = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userid);
         return user;
     }

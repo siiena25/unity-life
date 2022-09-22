@@ -1,6 +1,7 @@
 package com.unitylife.demo.controller;
 
 import com.unitylife.demo.entity.Event;
+import com.unitylife.demo.entity.User;
 import com.unitylife.demo.helperMethods.AccessManager;
 import com.unitylife.demo.service.EventService;
 import io.swagger.annotations.*;
@@ -66,12 +67,13 @@ public class EventController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @RequestMapping(value = "/createEvent/{userId}/token/{token}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createEvent(@ApiParam(value = "Event", required = true) @RequestBody Event assignment,
-                           @ApiParam(value = "User ID calling method", required = true)
+    public @ResponseBody Event createEvent(@ApiParam(value = "Event", required = true) @RequestBody Event assignment,
+                                          @ApiParam(value = "User ID calling method", required = true)
                            @PathVariable("userId") int userId,
-                            @PathVariable("token") int token) {
+                                          @PathVariable("token") int token) {
         //accessManager.checkUser(userId, token);
         eventService.createEvent(assignment);
+        return eventService.getEventByTitleAndAuthorId(assignment.getTitle(), userId);
     }
 
     @ApiOperation(value = "Updates Event given user ID and event ID")
