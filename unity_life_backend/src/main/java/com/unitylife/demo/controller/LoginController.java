@@ -2,7 +2,9 @@ package com.unitylife.demo.controller;
 
 import com.unitylife.demo.entity.LogInfo;
 import com.unitylife.demo.entity.User;
+import com.unitylife.demo.exceptions.AuthenticationException;
 import com.unitylife.demo.exceptions.DuplicateEmailException;
+import com.unitylife.demo.exceptions.LoginException;
 import com.unitylife.demo.service.AuthenticationService;
 import com.unitylife.demo.service.LogInfoService;
 import com.unitylife.demo.service.UserService;
@@ -33,20 +35,28 @@ public class LoginController {
         return token + "\n" + "userid = " + id;
     }
 
-    @RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/login/{email}/{password}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Integer getToken(
-            @ApiParam(value = "User ID", required = true)
-            @PathVariable("userId") int userId
+            @ApiParam(value = "Email", required = true)
+            @PathVariable("email") String email,
+
+            @ApiParam(value = "Password", required = true)
+            @PathVariable("password") String password
     ) {
-        User user = userService.getUserById(userId);
-        Integer token = null;
-        if (user != null) {
-            LogInfo logInfo = new LogInfo(user.getId(), user.getEmail(), user.getPassword());
-            logInfoService.addLogInfoData(logInfo);
-            token = logInfoService.getTokenByUserId(userId);
-            System.out.println("LoginController: getToken=" + token);
+        try {
+            User user = userService.getUserByEmail(email);
+            System.out.println(user.getPassword() + " " + password);
+            if (password.equals(user.getPassword())) {
+                Integer token;
+                LogInfo logInfo = new LogInfo(user.getId(), user.getEmail(), user.getPassword());
+                logInfoService.addLogInfoData(logInfo);
+                token = logInfoService.getTokenByUserId(user.getId());
+                return token;
+            }
+        } catch (Exception e) {
+            throw new LoginException();
         }
-        return token;
+        return null;
     }
 
     @RequestMapping(value = "/logout/{userId}", method = RequestMethod.GET)
@@ -55,7 +65,7 @@ public class LoginController {
             @PathVariable("userId") int userId
     ) {
         Integer token = logInfoService.getTokenByUserId(userId);
-        if(token != null) {
+        if (token != null) {
             logInfoService.removeLogInfoDataByUserId(userId);
         }
     }
