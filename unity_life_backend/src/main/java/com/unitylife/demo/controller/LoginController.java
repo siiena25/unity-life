@@ -2,6 +2,7 @@ package com.unitylife.demo.controller;
 
 import com.unitylife.demo.entity.LogInfo;
 import com.unitylife.demo.entity.User;
+import com.unitylife.demo.entity.UserWithToken;
 import com.unitylife.demo.exceptions.AuthenticationException;
 import com.unitylife.demo.exceptions.DuplicateEmailException;
 import com.unitylife.demo.exceptions.LoginException;
@@ -36,7 +37,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login/{email}/{password}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Integer getToken(
+    public @ResponseBody UserWithToken getToken(
             @ApiParam(value = "Email", required = true)
             @PathVariable("email") String email,
 
@@ -45,13 +46,12 @@ public class LoginController {
     ) {
         try {
             User user = userService.getUserByEmail(email);
-            System.out.println(user.getPassword() + " " + password);
             if (password.equals(user.getPassword())) {
                 Integer token;
                 LogInfo logInfo = new LogInfo(user.getId(), user.getEmail(), user.getPassword());
                 logInfoService.addLogInfoData(logInfo);
                 token = logInfoService.getTokenByUserId(user.getId());
-                return token;
+                return new UserWithToken(user, token.toString());
             }
         } catch (Exception e) {
             throw new LoginException();
