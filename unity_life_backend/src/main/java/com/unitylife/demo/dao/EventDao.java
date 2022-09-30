@@ -17,5 +17,7 @@ public interface EventDao {
 
     Event getEventByTitle(String title, int authorId);
 
+    Event getEventByEventId(String eventId);
+
     int getEventIdByTitle(String title);
 }

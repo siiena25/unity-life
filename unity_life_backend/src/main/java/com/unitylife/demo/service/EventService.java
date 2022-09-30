@@ -35,6 +35,11 @@ public class EventService {
         return this.eventDao.getAllEvents();
     }
 
+    public Event getEventByEventId(String eventId) {
+        return this.eventDao.getEventByEventId(eventId);
+    }
+
+
     public Event getEventByTitleAndAuthorId(String title, int authorId) {
         return this.eventDao.getEventByTitle(title, authorId);
     }
