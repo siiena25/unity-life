@@ -43,7 +43,9 @@ public class EventController {
             @ApiParam(value = "EventId", required = true)
             @PathVariable("eventId") String eventId
     ) {
-        return eventService.getEventByEventId(eventId);
+        Event event = eventService.getEventByEventId(eventId);
+        System.out.println("LOG:: event=" + event);
+        return event;
     }
 
     @ApiOperation(value = "Return current events in the database")
