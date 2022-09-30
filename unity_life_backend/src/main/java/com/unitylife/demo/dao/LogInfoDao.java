@@ -7,5 +7,5 @@ public interface LogInfoDao {
 
     void removeLogInfoDataByUserId(Integer userId);
 
-    Integer getTokenByUserId(int userId);
+    String getTokenByUserId(int userId);
 }

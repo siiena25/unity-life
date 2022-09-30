@@ -27,7 +27,7 @@ public class LogInfoService {
         this.logInfoDao.removeLogInfoDataByUserId(userId);
     }
 
-    public Integer getTokenByUserId(int userId) {
+    public String getTokenByUserId(int userId) {
         return this.logInfoDao.getTokenByUserId(userId);
     }
 }

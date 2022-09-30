@@ -31,6 +31,7 @@ public class UserWithToken {
     }
 
     public UserWithToken(User user, String token) {
+        this.userid = user.getId();
         this.firstname = user.getFirstName();
         this.lastname = user.getLastName();
         this.email = user.getEmail();

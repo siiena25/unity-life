@@ -4,6 +4,7 @@ import com.unitylife.demo.dao.LogInfoDao;
 import com.unitylife.demo.entity.LogInfo;
 import com.unitylife.demo.entity.User;
 import com.unitylife.demo.row_mappers.IntegerRowMapper;
+import com.unitylife.demo.row_mappers.StringRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,12 +17,13 @@ public class PostgreSQLLogInfoImpl implements LogInfoDao {
 
     @Override
     public void addLogInfoData(LogInfo logInfo) {
+        removeLogInfoDataByUserId(logInfo.getUserId());
         final String sql = "INSERT INTO log_info (userid, email, password, token) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 logInfo.getUserId(),
                 logInfo.getEmail(),
                 logInfo.getPassword(),
-                logInfo.getToken());
+                Integer.toString(logInfo.getToken()));
     }
 
     @Override
@@ -31,9 +33,11 @@ public class PostgreSQLLogInfoImpl implements LogInfoDao {
     }
 
     @Override
-    public Integer getTokenByUserId(int userId) {
+    public String getTokenByUserId(int userId) {
         final String sql = "SELECT token FROM log_info WHERE userid = ?";
-        Integer token = jdbcTemplate.queryForObject(sql, new IntegerRowMapper("token"), userId);
+        System.out.println("LOG:: LogInfoImpl " + sql);
+        String token = jdbcTemplate.queryForObject(sql, new StringRowMapper("token"), userId);
+        System.out.println("LOG:: LogInfoImpl " + token);
         return token;
     }
 }

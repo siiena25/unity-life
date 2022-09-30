@@ -46,12 +46,17 @@ public class LoginController {
     ) {
         try {
             User user = userService.getUserByEmail(email);
+            System.out.println("LOG:: login user= " + user);
+            System.out.println("LOG:: login password = " + password);
             if (password.equals(user.getPassword())) {
-                Integer token;
+                String token;
                 LogInfo logInfo = new LogInfo(user.getId(), user.getEmail(), user.getPassword());
+                System.out.println("LOG:: login LogInfo = " + logInfo);
                 logInfoService.addLogInfoData(logInfo);
                 token = logInfoService.getTokenByUserId(user.getId());
-                return new UserWithToken(user, token.toString());
+                System.out.println("LOG:: login token = " + token + " user " + user);
+                System.out.println("LOG:: " + new UserWithToken(user, token));
+                return new UserWithToken(user, token);
             }
         } catch (Exception e) {
             throw new LoginException();
@@ -64,7 +69,7 @@ public class LoginController {
             @ApiParam(value = "User ID", required = true)
             @PathVariable("userId") int userId
     ) {
-        Integer token = logInfoService.getTokenByUserId(userId);
+        String token = logInfoService.getTokenByUserId(userId);
         if (token != null) {
             logInfoService.removeLogInfoDataByUserId(userId);
         }
@@ -84,7 +89,9 @@ public class LoginController {
             @ApiParam(value = "User information", required = true)
             @RequestBody User user) {
         try {
+            System.out.println("LOG:: register start " + user);
             userService.register(user);
+            System.out.println("LOG:: register " + userService.getUserByEmail(user.getEmail()));
             return userService.getUserByEmail(user.getEmail());
         } catch (DataIntegrityViolationException e) {
             throw new DuplicateEmailException(user);
