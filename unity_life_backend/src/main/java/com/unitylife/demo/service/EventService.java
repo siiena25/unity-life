@@ -36,7 +36,7 @@ public class EventService {
     }
 
     public Event getEventByEventId(String eventId) {
-        return this.eventDao.getEventByEventId(eventId);
+        return this.eventDao.getEventByEventId(Integer.parseInt(eventId));
     }
 
 

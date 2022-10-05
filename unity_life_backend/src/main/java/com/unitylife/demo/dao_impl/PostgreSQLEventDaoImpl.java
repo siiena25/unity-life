@@ -50,7 +50,7 @@ public class PostgreSQLEventDaoImpl implements EventDao {
     }
 
     @Override
-    public Event getEventByEventId(String eventId) {
+    public Event getEventByEventId(int eventId) {
         final String sql = "SELECT * FROM events WHERE eventid = ?";
         Event event = jdbcTemplate.queryForObject(sql, new PostgreSQLEventDaoImpl.EventRowMapper(), eventId);
         return event;
