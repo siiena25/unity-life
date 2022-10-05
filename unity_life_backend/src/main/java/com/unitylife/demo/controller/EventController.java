@@ -38,7 +38,7 @@ public class EventController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @RequestMapping(value = "/event/{eventId}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/event/{eventId}", method = RequestMethod.GET)
     public @ResponseBody Event getEventById(
             @ApiParam(value = "EventId", required = true)
             @PathVariable("eventId") String eventId
